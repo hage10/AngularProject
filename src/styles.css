@@ -44,18 +44,12 @@
   background: #888888;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  width: 100vw - 15px;
-  height: 100vh;
-  font-family: NotosansRegular;
-  color: #212121;
-  font-size: 14px;
-}
+
 
 * {
   box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
 }
 
 

@@ -1,9 +1,10 @@
-<p-tabView>
+<p-tabView >
   <p-tabPanel header="Header 1">
     <ng-template pTemplate="item" let-item let-i="index">
-      <p-table [value]="posts" [tableStyle]="{'width': '100vh'}">
+      <p-table [value]="posts" [tableStyle]="{'width': '100vh'}" [scrollable]="true">
         <ng-template pTemplate="header">
           <tr>
+            <th>ID</th>
             <th>Author</th>
             <th>Title</th>
             <th>Function</th>
@@ -11,6 +12,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-product>
           <tr>
+            <td>{{product.id}}</td>
             <td>{{product.author}}</td>
             <td>{{product.title}}</td>
             <td>

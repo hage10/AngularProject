@@ -28,9 +28,7 @@ export class AddPostComponent implements OnInit {
     this.submit.emit(this.formAdd.value)
   }
   cancel(){
-    console.log(this.data);
-    this.formAdd.patchValue(this.data);
-    console.log(this.formAdd.value);
+    this.displayBasic=false;
   }
   closeDialog(){
     this.close.emit()

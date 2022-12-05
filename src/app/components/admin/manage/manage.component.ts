@@ -60,6 +60,7 @@ export class ManageComponent implements OnInit {
   addOnClick() {
     this.dialogMode = "add";
     this.displayBasic = true;
+    this.dataPost = {}
   }
   SubmitOnClick(data: any) {
 
