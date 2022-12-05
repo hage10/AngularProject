@@ -1,7 +1,7 @@
 import { DialogModule } from 'primeng/dialog';
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, Message } from 'primeng/api';
-import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MenuItem, Message, MessageService } from 'primeng/api';
+import { ConfirmationService, TreeNode } from 'primeng/api';
 import { AuthorService } from 'src/app/services/author.service';
 @Component({
   selector: 'app-manage',
@@ -11,14 +11,13 @@ import { AuthorService } from 'src/app/services/author.service';
 })
 export class ManageComponent implements OnInit {
   msgs: Message[] = [];
-
   display: boolean = false;
-  constructor(private confirmationService: ConfirmationService, private authorService: AuthorService) { }
+  constructor(private confirmationService: ConfirmationService, private authorService: AuthorService,private messageService: MessageService) { }
   displayBasic: boolean = false;
   items: MenuItem[] = [];
-  products: any[] = [];
-  dialogMode: string = "add"
-
+  posts: any[] = [];
+  dialogMode: string = "add";
+  dataPost: any;
   ngOnInit() {
     this.items = [
       { label: 'Home', icon: 'pi pi-fw pi-home' },
@@ -31,7 +30,7 @@ export class ManageComponent implements OnInit {
   }
   getListPosts() {
     this.authorService.getList().then((res: any) => {
-      this.products = res.data;
+      this.posts = res.data;
     })
 
   }
@@ -44,25 +43,46 @@ export class ManageComponent implements OnInit {
       rejectLabel: "Hủy",
       accept: () => {
         this.authorService.delete(data).then((res: any) => {
-          alert("thanh cong:")
+          this.messageService.add({ key: "toastUserView", severity: 'success', summary: "SUCCESS", detail: "Xóa thành công!" });
           this.getListPosts();
         }).catch((err: any) => {
-          alert("that bai")
+          this.messageService.add({ key: "toastUserView", severity: 'error', summary: "FAILED", detail: "Xóa thất bại!" });
         })
       }
     });
-
-
-
   }
-  updateOnClick(product: any) {
-   this.dialogMode = "update";
-   this.displayBasic = true;
+  updateOnClick(data: any) {
+    this.dataPost = { ...data }
+    this.dialogMode = "update";
+    this.displayBasic = true;
+
   }
   addOnClick() {
+    this.dialogMode = "add";
     this.displayBasic = true;
   }
-  closeDialog(){
+  SubmitOnClick(data: any) {
+
+    if (this.dialogMode == "add") {
+      this.authorService.add(data).then((res: any) => {
+        this.getListPosts();
+        this.messageService.add({ key: "toastUserView", severity: 'success', summary: "SUCCESS", detail: "Thêm thành công!" });
+      })
+        .catch((err: any) => {
+          this.messageService.add({ key: "toastUserView", severity: 'error', summary: "FAILED", detail: "Thêm thất bại!" });
+        })
+    }
+    else {
+      this.authorService.update(data.id,data).then((res: any) => {
+        this.getListPosts();
+        this.messageService.add({ key: "toastUserView", severity: 'success', summary: "SUCCESS", detail: "Cập nhật thành công!" });
+      })
+        .catch((err: any) => {
+          this.messageService.add({ key: "toastUserView", severity: 'error', summary: "FAILED", detail: "Cập nhật thất bại!" });
+        })
+    }
+  }
+  closeDialog() {
     this.displayBasic = false;
   }
 

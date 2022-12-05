@@ -1,38 +1,42 @@
 <p-tabView>
   <p-tabPanel header="Header 1">
-  <ng-template pTemplate="item" let-item let-i="index">
-    <p-table [value]="products" [tableStyle]="{'width': '100vh'}">
-      <ng-template pTemplate="header">
+    <ng-template pTemplate="item" let-item let-i="index">
+      <p-table [value]="posts" [tableStyle]="{'width': '100vh'}">
+        <ng-template pTemplate="header">
           <tr>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Chuc Nang</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Function</th>
           </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-product>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
           <tr>
-              <td>{{product.author}}</td>
-              <td>{{product.title}}</td>
-              <td>
-                <button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning" (click)="updateOnClick(product.id)"></button>
-                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteOnClick(product.id)"></button></td>
+            <td>{{product.author}}</td>
+            <td>{{product.title}}</td>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning"
+                (click)="updateOnClick(product)"></button>
+              <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-2"
+                (click)="deleteOnClick(product.id)"></button>
+            </td>
           </tr>
-      </ng-template>
-    </p-table>
-    <p-button (click)="addOnClick()" icon="pi pi-external-link" label="Show"></p-button>
+        </ng-template>
+      </p-table>
+      <div class="btn-add">
+        <p-button (click)="addOnClick()" icon="pi pi-plus" label="Thêm post" class="dis"></p-button>
+      </div>
 
-  </ng-template>
+    </ng-template>
   </p-tabPanel>
   <p-tabPanel header="Header 2">
-      Content 2
+    Content 2
   </p-tabPanel>
   <p-tabPanel header="Header 3">
-      Content 3
+    Content 3
   </p-tabPanel>
 </p-tabView>
 
-<app-add-post [displayBasic]="displayBasic" [dialogMode]="dialogMode" (close)="closeDialog()"></app-add-post>
-
-
-<!-- <p-confirmDialog key="confirm" icon="pi pi-exclamation-triangle" [style]="{width: '30vw'}"></p-confirmDialog> -->
-
+<ng-container *ngIf="displayBasic">
+  <app-add-post [data]="dataPost" [displayBasic]="displayBasic" [dialogMode]="dialogMode" (close)="closeDialog()"
+    (submit)="SubmitOnClick($event)"></app-add-post>
+</ng-container>

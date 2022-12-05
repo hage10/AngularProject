@@ -16,8 +16,8 @@ export class BaseService {
     return this.BaseAPIConfig.post(`${this.apiController}`, body);
   }
 
-  update(body: any) {
-    return this.BaseAPIConfig.put(`${this.apiController}`, body);
+  update(id:string,body: any) {
+    return this.BaseAPIConfig.put(`${this.apiController}/${id}`, body);
   }
 
   delete(id: string) {

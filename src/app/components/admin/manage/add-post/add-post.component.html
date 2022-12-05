@@ -1,17 +1,20 @@
-<p-dialog [header]="dialogMode == 'add'? 'Thêm danh mục': 'Sửa danh mục'" [(visible)]="displayBasic" (onHide)="closeDialog()"
-  [style]="{width: '50vw'}" [baseZIndex]="10000">
+<form [formGroup]="formAdd">
+  <p-dialog [header]="dialogMode == 'add'? 'Thêm danh mục': 'Sửa danh mục'" [(visible)]="displayBasic" (onHide)="closeDialog()"[style]="{width: '50vw'}" [baseZIndex]="10000">
   <div class="grid">
     <span class="col-6 p-float-label">
-      <input id="float-input" type="text" pInputText>
-      <label for="float-input">Username</label>
+      <input id="float-input" type="text" formControlName="author" pInputText>
+      <label for="float-input">Author</label>
     </span>
     <span class="col-6 p-float-label">
-      <input id="float-input" type="text" pInputText>
-      <label for="float-input">Username</label>
+      <input id="float-input" type="text" formControlName="title" pInputText>
+      <label for="float-input">Title</label>
     </span>
   </div>
   <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="displayBasic=false" label="Yes" styleClass="p-button-text"></p-button>
-    <p-button icon="pi pi-times" (click)="displayBasic=false" label="No"></p-button>
+    <p-button icon="pi pi-check" (click)="save()" label="Yes" styleClass="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="cancel()" label="No"></p-button>
   </ng-template>
-</p-dialog>
+  </p-dialog>
+</form>
+
+
