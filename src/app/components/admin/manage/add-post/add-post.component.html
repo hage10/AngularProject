@@ -1,20 +1,35 @@
 <form [formGroup]="formAdd">
-  <p-dialog [header]="dialogMode == 'add'? 'Thêm danh mục': 'Sửa danh mục'" [(visible)]="displayBasic" (onHide)="closeDialog()"[style]="{width: '30vw'}" [baseZIndex]="10000">
-  <div class="grid ml-2">
-    <span class="col-6 p-float-label">
-      <input id="float-input" type="text" formControlName="author" pInputText>
-      <label for="float-input">Author</label>
-    </span>
-    <span class="col-6 p-float-label">
-      <input id="float-input" type="text" formControlName="title" pInputText>
-      <label for="float-input">Title</label>
-    </span>
-  </div>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="save()" label="Yes" styleClass="p-button-text"></p-button>
-    <p-button icon="pi pi-times" (click)="cancel()" label="No"></p-button>
-  </ng-template>
+  <p-dialog [header]="dialogMode == 'add'? 'Thêm danh mục': 'Sửa danh mục'" [(visible)]="displayBasic"
+    (onHide)="closeDialog()" [baseZIndex]="10000">
+    <div class="grid fluid ml-2">
+      <div class="p-field col-6 md-12">
+        <span class="p-float-label">
+          <input type="text" pInputText autofocus formControlName="author" />
+          <label>Author<span style="color: red;">*</span>
+          </label>
+        </span>
+        <div *ngIf="f['author'].errors && f['author'].dirty">
+          <ng-container *ngIf="f['author'].errors['required']">
+            <p-tag styleClass="p-mr-2" severity="warning" value="Tên danh mục không được để trống"></p-tag><br>
+          </ng-container>
+        </div>
+      </div>
+      <div class="p-field col-6 md-12">
+        <span class="p-float-label">
+          <input type="text" pInputText autofocus formControlName="title" />
+          <label>Title<span style="color: red;">*</span>
+          </label>
+        </span>
+        <div *ngIf="f['title'].errors && f['title'].dirty">
+          <ng-container *ngIf="f['title'].errors['required']">
+            <p-tag styleClass="p-mr-2" severity="warning" value="Tên danh mục không được để trống"></p-tag><br>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="save()" label="Yes" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-times" (click)="cancel()" label="No"></p-button>
+    </ng-template>
   </p-dialog>
 </form>
-
-

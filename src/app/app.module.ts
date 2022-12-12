@@ -16,11 +16,16 @@ import { AddPostComponent } from './components/admin/manage/add-post/add-post.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
+import { TagModule } from 'primeng/tag';
+import {HeaderSecondComponent} from './components/admin/manage/header-second/header-second.component';
+import { EvenBusService } from 'src/services/even-bus.service';
+
 @NgModule({
   declarations: [
     AppComponent,
     ManageComponent,
-    AddPostComponent
+    AddPostComponent,
+    HeaderSecondComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,7 @@ import {ToastModule} from 'primeng/toast';
     ButtonModule,
     ConfirmDialogModule,
     TabViewModule,
+    TagModule,
     InputTextModule,
     DialogModule,
     BrowserAnimationsModule,
@@ -37,7 +43,7 @@ import {ToastModule} from 'primeng/toast';
     ReactiveFormsModule,
     ToastModule
   ],
-  providers: [ConfirmDialogModule, ConfirmationService,MessageService],
+  providers: [ConfirmDialogModule, ConfirmationService,MessageService,EvenBusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
